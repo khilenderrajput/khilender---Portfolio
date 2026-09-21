@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-deep: #050506;
+  --bg-dark: #0a0a0b;
+  --surface: #131315;
+  --surface-2: #1b1b1e;
+  --fg: #e6e1d3;
+  --fg-dim: rgba(230, 225, 211, 0.65);
+  --fg-faint: rgba(230, 225, 211, 0.35);
+  --rule: rgba(230, 225, 211, 0.12);
+  --rule-strong: rgba(230, 225, 211, 0.22);
+  --accent: #c8a961;
+  --accent-soft: rgba(200, 169, 97, 0.15);
+  --accent-ink: #171208;
+  
+  --font-display: 'Outfit', -apple-system, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg-deep);
+  color: var(--fg);
+  scroll-behavior: smooth;
+  font-family: var(--font-body);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-dark);
+  color: var(--fg);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(200, 169, 97, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(200, 169, 97, 0.6);
+}
+
+/* Glassmorphic Navbar Pill */
+.glass-pill {
+  background: rgba(19, 19, 21, 0.85);
+  border: 1px solid rgba(230, 225, 211, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Custom Cursor Styling */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease-out;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(200, 169, 97, 0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.18s ease-out, width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+}
+
+/* Monospace Eyebrow & Tag styles */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+
+.tag-pill {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.3em 0.85em;
+  border: 1px solid var(--rule-strong);
+  border-radius: 9999px;
+  color: var(--fg-dim);
+  background: rgba(27, 27, 30, 0.6);
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.tag-pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* Tabular Nums for Stats */
+.stat-number {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Glowing Border Effect */
+.glow-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-card:hover {
+  border-color: rgba(200, 169, 97, 0.4);
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.8), 0 0 25px -5px rgba(200, 169, 97, 0.12);
+  transform: translateY(-4px);
+}
+
+/* Pulse Bar Equalizer Animation */
+@keyframes eq {
+  0%, 100% { height: 4px; }
+  50% { height: 16px; }
+}
+
+.eq-bar-1 { animation: eq 0.6s ease-in-out infinite; }
+.eq-bar-2 { animation: eq 0.8s ease-in-out 0.2s infinite; }
+.eq-bar-3 { animation: eq 0.5s ease-in-out 0.4s infinite; }
