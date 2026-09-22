@@ -57,6 +57,10 @@ function getPlayablePreview(item: any): string | null {
   return null;
 }
 
+export function generateStaticParams() {
+  return [{ artistId: 'default' }];
+}
+
 export async function GET(
   request: Request,
   { params }: { params: { artistId: string } }
