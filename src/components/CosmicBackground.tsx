@@ -88,7 +88,7 @@ export default function CosmicBackground() {
   const pathParallaxY = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const dotsParallaxY = useTransform(scrollYProgress, [0, 1], [0, -220]);
 
-  // Dynamic path length drawing along with scroll
+  // Dynamic path length drawing along with scroll (starts at 15% ~630px beside SEE THE PROJECTS button area)
   const pathLength = useTransform(scrollYProgress, [0, 0.95], [0.15, 1]);
 
   // Overall path fade-in/out on scroll
@@ -109,6 +109,9 @@ export default function CosmicBackground() {
       const spreadY = (pseudoRandom(seed++) - 0.5) * 45;
       const posX = Math.max(40, Math.min(960, baseX + spread));
       const posY = Math.max(30, Math.min(3970, baseY + spreadY));
+
+      // Omit upper dots above the SEE THE PROJECTS button area (y < 630)
+      if (posY < 630) continue;
 
       const sizeRand = pseudoRandom(seed++);
       let r = 1.8;

@@ -70,6 +70,7 @@ export default function BackgroundCanvas() {
     let startY = 200;
     let startX = width * 0.55;
     let endY = docHeight - 380;
+    let cutoffY = 610;
 
     let isMobile = width < 768;
 
@@ -108,11 +109,20 @@ export default function BackgroundCanvas() {
         document.querySelector('img[alt*="Profile"]') || document.querySelector('#hero');
       if (heroPhoto) {
         const rect = heroPhoto.getBoundingClientRect();
-        startY = rect.top + window.scrollY + rect.height * 0.2;
-        startX = rect.left + rect.width * 0.5;
+        startY = rect.top + window.scrollY + rect.height * 0.12;
+        // Position startX at the side edge of the profile photo container
+        startX = Math.min(width - 40, rect.left + rect.width * 0.85 + 15);
       } else {
         startY = 200;
-        startX = width * 0.55;
+        startX = width * 0.6;
+      }
+
+      const projectsBtn = document.querySelector('a[href="#projects"]');
+      if (projectsBtn) {
+        const rect = projectsBtn.getBoundingClientRect();
+        cutoffY = Math.max(660, rect.top + window.scrollY + 400);
+      } else {
+        cutoffY = 660;
       }
 
       const contactSection = document.querySelector('#contact');
@@ -155,68 +165,66 @@ export default function BackgroundCanvas() {
       return { x, y };
     };
 
-    // 2. Define Special Orbital Clusters positioned directly ON the existing zig-zag path
-    const clusters: SpecialCluster[] = [
-      { id: 0, initialT: 0.18, spinDirection: 1, radius: isMobile ? 65 : 85 },  // Hero / intro zone
-      { id: 1, initialT: 0.42, spinDirection: -1, radius: isMobile ? 75 : 95 }, // Main middle portfolio zone (Projects)
-      { id: 2, initialT: 0.65, spinDirection: 1, radius: isMobile ? 70 : 90 },  // Certificates / Skills zone
-      { id: 3, initialT: 0.82, spinDirection: -1, radius: isMobile ? 65 : 85 }, // Contact / Bottom zone
-    ];
+    // 2. Define strictly ONE single Special Orbital Cluster that travels along the yellow dots path
+    const singleCluster: SpecialCluster = {
+      id: 0,
+      initialT: 0,
+      spinDirection: 1,
+      radius: isMobile ? 70 : 90,
+    };
 
     const particles: Particle[] = [];
     let particleIdCounter = 0;
 
-    // A. Generate Special Orbital Cluster Particles
-    clusters.forEach((c) => {
-      const clusterParticlesCount = isMobile ? 90 : 140;
-      for (let j = 0; j < clusterParticlesCount; j++) {
-        const ringType = Math.random();
-        let dist = 12;
+    // A. Generate Single Orbital Cluster Particles
+    const clusterParticlesCount = isMobile ? 100 : 160;
+    for (let j = 0; j < clusterParticlesCount; j++) {
+      const ringType = Math.random();
+      let dist = 12;
 
-        if (ringType < 0.22) {
-          dist = Math.random() * 15 + 10;
-        } else if (ringType < 0.65) {
-          dist = Math.random() * 30 + 25;
-        } else {
-          dist = Math.random() * 35 + 55;
-        }
-
-        dist += (Math.random() - 0.5) * 8;
-
-        const baseAngle = Math.random() * Math.PI * 2;
-        const color = palette[Math.floor(Math.random() * palette.length)];
-
-        const sizeRand = Math.random();
-        let radius = 1.6;
-        let hasGlow = false;
-
-        if (dist < 22 && sizeRand < 0.3) {
-          radius = Math.random() * 2.5 + 4.5;
-          hasGlow = true;
-        } else if (sizeRand < 0.75) {
-          radius = Math.random() * 1.4 + 1.5;
-        } else {
-          radius = Math.random() * 1.8 + 3.0;
-          if (Math.random() < 0.4) hasGlow = true;
-        }
-
-        const baseAlpha = Math.max(0.2, (1 - dist / (c.radius * 1.15))) * (Math.random() * 0.45 + 0.55);
-
-        particles.push({
-          id: particleIdCounter++,
-          t: c.initialT,
-          dist,
-          baseAngle,
-          spinDirection: c.spinDirection,
-          isCluster: true,
-          clusterId: c.id,
-          radius,
-          color,
-          baseAlpha,
-          hasGlow,
-        });
+      if (ringType < 0.22) {
+        dist = Math.random() * 15 + 10;
+      } else if (ringType < 0.65) {
+        dist = Math.random() * 30 + 25;
+      } else {
+        dist = Math.random() * 35 + 55;
       }
-    });
+
+      dist += (Math.random() - 0.5) * 8;
+
+      const baseAngle = Math.random() * Math.PI * 2;
+      const color = palette[Math.floor(Math.random() * palette.length)];
+
+      const sizeRand = Math.random();
+      let radius = 1.6;
+      let hasGlow = false;
+
+      if (dist < 22 && sizeRand < 0.3) {
+        radius = Math.random() * 2.5 + 4.5;
+        hasGlow = true;
+      } else if (sizeRand < 0.75) {
+        radius = Math.random() * 1.4 + 1.5;
+      } else {
+        radius = Math.random() * 1.8 + 3.0;
+        if (Math.random() < 0.4) hasGlow = true;
+      }
+
+      const baseAlpha = Math.max(0.2, (1 - dist / (singleCluster.radius * 1.15))) * (Math.random() * 0.45 + 0.55);
+
+      particles.push({
+        id: particleIdCounter++,
+        t: 0,
+        dist,
+        baseAngle,
+        spinDirection: singleCluster.spinDirection,
+        isCluster: true,
+        clusterId: 0,
+        radius,
+        color,
+        baseAlpha,
+        hasGlow,
+      });
+    }
 
     // B. Generate Normal Zig-Zag Stream Particles
     const streamParticlesCount = isMobile ? 700 : 1400;
@@ -258,49 +266,50 @@ export default function BackgroundCanvas() {
     };
     window.addEventListener('resize', handleResize, { passive: true });
 
-    const initialScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
-
     let time = 0;
+    let smoothProgress = 0;
+
     const render = () => {
       time += 0.015;
 
       const currentScrollY = window.scrollY;
-      const scrollOffset = (currentScrollY - initialScrollY) * 2.0;
+      const vh = window.innerHeight;
+      const maxScroll = Math.max(1, docHeight - vh);
+      const targetProgress = Math.min(1.0, Math.max(0, currentScrollY / maxScroll));
+
+      smoothProgress += (targetProgress - smoothProgress) * 0.08;
 
       ctx.clearRect(0, 0, width, height);
 
-      const visibleRevealY = currentScrollY + window.innerHeight * 2.0;
+      const pathT = Math.min(1.0, Math.max(0.0, smoothProgress));
+      const clusterT = Math.min(1.0, Math.max(0.03, 0.03 + smoothProgress * 0.97));
+      const rawClusterCenter = getPointOnPath(clusterT);
+      const centerX = width < 1024 ? width * 0.5 : width * 0.52;
+      const horizScale = 0.86 + 0.14 * smoothProgress;
+      const clusterCenter = {
+        x: centerX + (rawClusterCenter.x - centerX) * horizScale,
+        y: rawClusterCenter.y,
+      };
 
-      // Calculate cluster center positions directly at the final draw coordinates
-      const clusterCenters = clusters.map((c) => {
-        const baseCenter = getPointOnPath(c.initialT);
-        return {
-          id: c.id,
-          center: {
-            x: baseCenter.x,
-            y: baseCenter.y + scrollOffset,
-          },
-          radius: c.radius,
-        };
-      });
+      // Draw single cluster radial background glow centered directly on the trajectory path
+      ctx.save();
+      const grad = ctx.createRadialGradient(
+        clusterCenter.x,
+        clusterCenter.y,
+        0,
+        clusterCenter.x,
+        clusterCenter.y,
+        singleCluster.radius * 0.9
+      );
+      grad.addColorStop(0, 'rgba(240, 236, 207, 0.28)');
+      grad.addColorStop(0.35, 'rgba(232, 228, 201, 0.12)');
+      grad.addColorStop(1, 'rgba(240, 236, 207, 0)');
 
-      // Draw cluster radial gradients at the scroll-linked center positions
-      clusters.forEach((c, idx) => {
-        const cPt = clusterCenters[idx].center;
-        if (cPt.y <= visibleRevealY + 800 && cPt.y >= currentScrollY - 800) {
-          ctx.save();
-          const grad = ctx.createRadialGradient(cPt.x, cPt.y, 0, cPt.x, cPt.y, c.radius * 0.9);
-          grad.addColorStop(0, 'rgba(240, 236, 207, 0.28)');
-          grad.addColorStop(0.35, 'rgba(232, 228, 201, 0.12)');
-          grad.addColorStop(1, 'rgba(240, 236, 207, 0)');
-
-          ctx.fillStyle = grad;
-          ctx.beginPath();
-          ctx.arc(cPt.x, cPt.y, c.radius * 0.9, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.restore();
-        }
-      });
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(clusterCenter.x, clusterCenter.y, singleCluster.radius * 0.9, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
@@ -308,35 +317,26 @@ export default function BackgroundCanvas() {
         let pX: number;
         let pY: number;
 
-        if (p.isCluster && p.clusterId !== undefined) {
-          // 1. Existing orbital position calculation
-          const baseCenter = getPointOnPath(p.t);
+        if (p.isCluster) {
+          // Circular orbital group centers directly on the yellow dots trajectory path
           const angle = p.baseAngle + time * 0.5 * p.spinDirection;
 
-          const particleX = baseCenter.x + Math.cos(angle) * p.dist;
-          const particleY = baseCenter.y + Math.sin(angle) * p.dist;
-
-          // 2. Final particle position receives 1:1 viewport scrollOffset directly at draw target
-          const finalParticleX = particleX;
-          const finalParticleY = particleY + scrollOffset;
-
-          pX = finalParticleX;
-          pY = finalParticleY;
+          pX = clusterCenter.x + Math.cos(angle) * p.dist;
+          pY = clusterCenter.y + Math.sin(angle) * p.dist;
         } else {
-          // Normal stream particles follow trajectory
+          // Normal stream particles follow trajectory path
           const pathPt = getPointOnPath(p.t);
           const angle = p.baseAngle + time * 0.1 * p.spinDirection;
           pX = pathPt.x + Math.cos(angle) * p.dist;
           pY = pathPt.y + Math.sin(angle) * p.dist * 0.7;
 
-          if (pY > endY || pY > visibleRevealY) continue;
+          if (pY > endY || pY < cutoffY) continue;
         }
 
-        if (pY > height + 1000 || pY < -1000) continue;
+        if (pY > height + 200 || pY < -200) continue;
 
-        const revealFactor = p.isCluster ? 1.0 : Math.min(1, Math.max(0, (visibleRevealY - pY) / 140));
         const twinkle = p.hasGlow ? Math.sin(time * 2.2 + p.id) * 0.15 + 0.85 : 1.0;
-        const finalAlpha = Math.min(1, Math.max(0, p.baseAlpha * revealFactor * twinkle));
+        const finalAlpha = Math.min(1, Math.max(0, p.baseAlpha * twinkle));
 
         if (finalAlpha <= 0.02) continue;
 

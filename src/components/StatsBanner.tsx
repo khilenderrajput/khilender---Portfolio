@@ -4,16 +4,16 @@ import { motion } from 'framer-motion';
 
 const STATS = [
   {
-    value: '650+',
-    label: 'DSA PROBLEMS SOLVED',
+    value: '8.07',
+    label: 'B.TECH CGPA',
   },
   {
-    value: '1707',
-    label: 'LEETCODE MAX RATING',
+    value: '20+',
+    label: 'CHURN KPIS TRACKED',
   },
   {
-    value: '1513',
-    label: 'CODECHEF MAX RATING',
+    value: '100+',
+    label: 'SQL PROBLEMS SOLVED ON LEETCODE',
   },
 ];
 
