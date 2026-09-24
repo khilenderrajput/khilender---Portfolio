@@ -24,7 +24,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-fadeIn overflow-y-auto">
       <div className="relative w-full max-w-4xl bg-surface border border-surfaceBorderStrong rounded-2xl shadow-2xl overflow-hidden my-8 max-h-[90vh] flex flex-col">
-        
+
         {/* Modal Header */}
         <div className="p-6 border-b border-surfaceBorder flex items-start justify-between bg-surfaceLight/50">
           <div>
@@ -48,11 +48,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         <div className="flex border-b border-surfaceBorder bg-bgDark/60 px-6 gap-2 pt-2">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`font-mono text-xs uppercase tracking-wider py-3 px-4 border-b-2 font-semibold transition-all flex items-center gap-2 ${
-              activeTab === 'overview'
+            className={`font-mono text-xs uppercase tracking-wider py-3 px-4 border-b-2 font-semibold transition-all flex items-center gap-2 ${activeTab === 'overview'
                 ? 'border-gold text-gold bg-gold/10 rounded-t-lg'
                 : 'border-transparent text-cream-dim hover:text-cream'
-            }`}
+              }`}
           >
             <BarChart3 size={15} />
             <span>Overview & Metrics</span>
@@ -61,11 +60,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           {project.powerBiPreview && (
             <button
               onClick={() => setActiveTab('powerbi')}
-              className={`font-mono text-xs uppercase tracking-wider py-3 px-4 border-b-2 font-semibold transition-all flex items-center gap-2 ${
-                activeTab === 'powerbi'
+              className={`font-mono text-xs uppercase tracking-wider py-3 px-4 border-b-2 font-semibold transition-all flex items-center gap-2 ${activeTab === 'powerbi'
                   ? 'border-gold text-gold bg-gold/10 rounded-t-lg'
                   : 'border-transparent text-cream-dim hover:text-cream'
-              }`}
+                }`}
             >
               <TrendingUp size={15} />
               <span>Simulated Power BI BI Dashboard</span>
@@ -75,11 +73,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           {(project.sqlSnippet || project.pythonSnippet) && (
             <button
               onClick={() => setActiveTab('code')}
-              className={`font-mono text-xs uppercase tracking-wider py-3 px-4 border-b-2 font-semibold transition-all flex items-center gap-2 ${
-                activeTab === 'code'
+              className={`font-mono text-xs uppercase tracking-wider py-3 px-4 border-b-2 font-semibold transition-all flex items-center gap-2 ${activeTab === 'code'
                   ? 'border-gold text-gold bg-gold/10 rounded-t-lg'
                   : 'border-transparent text-cream-dim hover:text-cream'
-              }`}
+                }`}
             >
               <Code size={15} />
               <span>SQL & Python Code</span>
@@ -89,7 +86,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
         {/* Modal Body Content */}
         <div className="p-6 overflow-y-auto flex-1 font-body">
-          
+
           {/* TAB 1: OVERVIEW */}
           {activeTab === 'overview' && (
             <div className="space-y-6">

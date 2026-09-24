@@ -176,8 +176,8 @@ export default function BackgroundCanvas() {
     const particles: Particle[] = [];
     let particleIdCounter = 0;
 
-    // A. Generate Single Orbital Cluster Particles (matching IMAGE 2 visual reference)
-    const clusterParticlesCount = isMobile ? 18 : 28;
+    // A. Generate Single Orbital Cluster Particles (matching visual reference)
+    const clusterParticlesCount = isMobile ? 6 : 9;
     const clusterPalette = [
       '245, 236, 203', // Warm Pale Gold
       '239, 229, 190', // Soft Golden Cream
@@ -295,9 +295,9 @@ export default function BackgroundCanvas() {
         y: rawClusterCenter.y,
       };
 
-      // Draw single cluster radial background glow matching IMAGE 2
+      // Draw single cluster radial background glow behind the dots (matching reference image)
       ctx.save();
-      const glowRadius = isMobile ? 110 : 150;
+      const glowRadius = isMobile ? 135 : 190;
       const grad = ctx.createRadialGradient(
         clusterCenter.x,
         clusterCenter.y,
@@ -306,9 +306,10 @@ export default function BackgroundCanvas() {
         clusterCenter.y,
         glowRadius
       );
-      grad.addColorStop(0, 'rgba(240, 225, 180, 0.12)');
-      grad.addColorStop(0.4, 'rgba(235, 220, 175, 0.05)');
-      grad.addColorStop(0.8, 'rgba(230, 215, 170, 0.015)');
+      grad.addColorStop(0, 'rgba(245, 230, 185, 0.24)');
+      grad.addColorStop(0.25, 'rgba(240, 222, 175, 0.14)');
+      grad.addColorStop(0.55, 'rgba(235, 215, 168, 0.05)');
+      grad.addColorStop(0.8, 'rgba(230, 210, 160, 0.015)');
       grad.addColorStop(1, 'rgba(240, 225, 180, 0)');
 
       ctx.fillStyle = grad;
