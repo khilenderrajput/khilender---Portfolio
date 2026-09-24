@@ -176,40 +176,44 @@ export default function BackgroundCanvas() {
     const particles: Particle[] = [];
     let particleIdCounter = 0;
 
-    // A. Generate Single Orbital Cluster Particles
-    const clusterParticlesCount = isMobile ? 100 : 160;
+    // A. Generate Single Orbital Cluster Particles (matching IMAGE 2 visual reference)
+    const clusterParticlesCount = isMobile ? 18 : 28;
+    const clusterPalette = [
+      '245, 236, 203', // Warm Pale Gold
+      '239, 229, 190', // Soft Golden Cream
+      '250, 244, 214', // Warm Bright Golden White
+      '234, 221, 170', // Muted Soft Gold
+    ];
+
     for (let j = 0; j < clusterParticlesCount; j++) {
       const ringType = Math.random();
       let dist = 12;
 
-      if (ringType < 0.22) {
-        dist = Math.random() * 15 + 10;
-      } else if (ringType < 0.65) {
-        dist = Math.random() * 30 + 25;
+      if (ringType < 0.3) {
+        dist = Math.random() * 15 + 8;
+      } else if (ringType < 0.7) {
+        dist = Math.random() * 25 + 20;
       } else {
-        dist = Math.random() * 35 + 55;
+        dist = Math.random() * 30 + 40;
       }
 
-      dist += (Math.random() - 0.5) * 8;
+      dist += (Math.random() - 0.5) * 6;
 
       const baseAngle = Math.random() * Math.PI * 2;
-      const color = palette[Math.floor(Math.random() * palette.length)];
+      const color = clusterPalette[Math.floor(Math.random() * clusterPalette.length)];
 
       const sizeRand = Math.random();
-      let radius = 1.6;
-      let hasGlow = false;
+      let radius = 2.4;
 
-      if (dist < 22 && sizeRand < 0.3) {
-        radius = Math.random() * 2.5 + 4.5;
-        hasGlow = true;
-      } else if (sizeRand < 0.75) {
-        radius = Math.random() * 1.4 + 1.5;
+      if (sizeRand < 0.35) {
+        radius = Math.random() * 1.5 + 2.2;
+      } else if (sizeRand < 0.8) {
+        radius = Math.random() * 1.8 + 3.2;
       } else {
-        radius = Math.random() * 1.8 + 3.0;
-        if (Math.random() < 0.4) hasGlow = true;
+        radius = Math.random() * 1.8 + 4.2;
       }
 
-      const baseAlpha = Math.max(0.2, (1 - dist / (singleCluster.radius * 1.15))) * (Math.random() * 0.45 + 0.55);
+      const baseAlpha = Math.max(0.45, 1 - dist / (singleCluster.radius * 1.2)) * (Math.random() * 0.35 + 0.65);
 
       particles.push({
         id: particleIdCounter++,
@@ -222,7 +226,7 @@ export default function BackgroundCanvas() {
         radius,
         color,
         baseAlpha,
-        hasGlow,
+        hasGlow: true,
       });
     }
 
@@ -291,23 +295,25 @@ export default function BackgroundCanvas() {
         y: rawClusterCenter.y,
       };
 
-      // Draw single cluster radial background glow centered directly on the trajectory path
+      // Draw single cluster radial background glow matching IMAGE 2
       ctx.save();
+      const glowRadius = isMobile ? 110 : 150;
       const grad = ctx.createRadialGradient(
         clusterCenter.x,
         clusterCenter.y,
         0,
         clusterCenter.x,
         clusterCenter.y,
-        singleCluster.radius * 0.9
+        glowRadius
       );
-      grad.addColorStop(0, 'rgba(240, 236, 207, 0.28)');
-      grad.addColorStop(0.35, 'rgba(232, 228, 201, 0.12)');
-      grad.addColorStop(1, 'rgba(240, 236, 207, 0)');
+      grad.addColorStop(0, 'rgba(240, 225, 180, 0.12)');
+      grad.addColorStop(0.4, 'rgba(235, 220, 175, 0.05)');
+      grad.addColorStop(0.8, 'rgba(230, 215, 170, 0.015)');
+      grad.addColorStop(1, 'rgba(240, 225, 180, 0)');
 
       ctx.fillStyle = grad;
       ctx.beginPath();
-      ctx.arc(clusterCenter.x, clusterCenter.y, singleCluster.radius * 0.9, 0, Math.PI * 2);
+      ctx.arc(clusterCenter.x, clusterCenter.y, glowRadius, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
 
@@ -346,8 +352,8 @@ export default function BackgroundCanvas() {
         ctx.fillStyle = `rgba(${p.color}, ${finalAlpha.toFixed(2)})`;
 
         if (p.hasGlow) {
-          ctx.shadowColor = 'rgba(240, 236, 207, 0.85)';
-          ctx.shadowBlur = p.radius * 4;
+          ctx.shadowColor = `rgba(${p.color}, 0.85)`;
+          ctx.shadowBlur = p.radius * 3.5;
         }
 
         ctx.fill();
