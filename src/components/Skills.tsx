@@ -32,18 +32,18 @@ export function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-28"
+          className="mb-14 sm:mb-20 md:mb-28"
         >
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#666668] block mb-6 font-medium">
+          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#666668] block mb-4 sm:mb-6 font-medium">
             About
           </span>
-          <h2 className="font-display text-6xl md:text-7xl font-black text-[#E5DFD3] tracking-tight">
+          <h2 className="font-display text-4xl sm:text-6xl md:text-7xl font-black text-[#E5DFD3] tracking-tight">
             Skills
           </h2>
         </motion.div>
 
         {/* 2-Column Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-24 gap-y-12 sm:gap-y-20 md:gap-y-32">
           {SKILL_CATEGORIES.map((group, index) => (
             <motion.div
               key={group.category}

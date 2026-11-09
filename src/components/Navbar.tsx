@@ -21,7 +21,7 @@ export default function Navbar({ isPlaying, onToggleSound, onOpenResumeModal }: 
   ];
 
   return (
-    <header className="fixed top-4 sm:top-5 right-6 md:right-12 translate-y-[2px] z-50 pointer-events-none">
+    <header className="fixed top-3 sm:top-4 md:top-5 right-3 sm:right-6 md:right-12 translate-y-[2px] z-50 pointer-events-none">
       <nav className="glass-pill pointer-events-auto rounded-full px-5 py-[8.5px] flex items-center justify-between shadow-2xl transition-all duration-300 border border-[rgba(230,225,211,0.22)] bg-[#131315d9] backdrop-blur-md gap-4 sm:gap-6">
         
         {/* Left Group: Brand Monogram & Sound Toggle */}

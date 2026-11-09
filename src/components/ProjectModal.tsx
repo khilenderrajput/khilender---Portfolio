@@ -45,7 +45,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-surfaceBorder bg-bgDark/60 px-6 gap-2 pt-2">
+        <div className="flex border-b border-surfaceBorder bg-bgDark/60 px-4 sm:px-6 gap-2 pt-2 overflow-x-auto">
           <button
             onClick={() => setActiveTab('overview')}
             className={`font-mono text-xs uppercase tracking-wider py-3 px-4 border-b-2 font-semibold transition-all flex items-center gap-2 ${activeTab === 'overview'

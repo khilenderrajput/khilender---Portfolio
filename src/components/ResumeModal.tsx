@@ -31,7 +31,7 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
       <div className="relative w-full max-w-4xl bg-surface border border-surfaceBorderStrong rounded-2xl shadow-2xl overflow-hidden my-8 max-h-[92vh] flex flex-col">
         
         {/* Modal Header */}
-        <div className="p-4 sm:p-6 border-b border-surfaceBorder flex items-center justify-between bg-surfaceLight/80">
+        <div className="p-4 sm:p-6 border-b border-surfaceBorder flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-surfaceLight/80">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gold/15 border border-gold/30 flex items-center justify-center text-gold">
               <FileText size={20} />

@@ -49,7 +49,7 @@ export default function Certificates() {
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#78786C] block mb-[19px] font-semibold">
             CREDENTIALS
           </span>
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#E5DFD3] tracking-tight leading-none">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#E5DFD3] tracking-tight leading-none">
             Certificates
           </h2>
         </motion.div>
@@ -60,7 +60,7 @@ export default function Certificates() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-14 md:mb-16"
+          className="flex flex-wrap items-center gap-2 sm:gap-2.5 md:gap-3 mb-10 sm:mb-14 md:mb-16"
         >
           {FILTER_OPTIONS.map((filter) => {
             const isActive = activeFilter === filter;
@@ -69,7 +69,7 @@ export default function Certificates() {
                 key={filter}
                 type="button"
                 onClick={() => setActiveFilter(filter)}
-                className={`px-4 sm:px-5 py-2 rounded-full font-mono text-xs sm:text-[13px] tracking-wide transition-all duration-200 cursor-pointer select-none whitespace-nowrap ${
+                className={`px-3.5 sm:px-5 py-2 rounded-full font-mono text-xs sm:text-[13px] tracking-wide transition-all duration-200 cursor-pointer select-none whitespace-nowrap ${
                   isActive
                     ? 'border border-[#555560] bg-[#16161A] text-[#F3EFE6] font-medium'
                     : 'border border-[#222226] bg-[#0A0A0C] text-[#C4BFB2] hover:text-[#F3EFE6] hover:border-[#44444A]'
@@ -114,7 +114,7 @@ export default function Certificates() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-[#121214]/95 backdrop-blur-sm border border-[#222226] hover:border-[#33333a] rounded-3xl transition-all duration-300 relative overflow-hidden py-8 sm:py-12 md:py-14 lg:py-16 px-6 sm:px-8 lg:px-7"
+                  className="bg-[#121214]/95 backdrop-blur-sm border border-[#222226] hover:border-[#33333a] rounded-3xl transition-all duration-300 relative overflow-hidden py-8 sm:py-12 md:py-14 lg:py-16 px-5 sm:px-8 lg:px-7"
                 >
                   <div
                     className={
@@ -126,7 +126,7 @@ export default function Certificates() {
                     
                     {/* Visual Media Column (Matching Projects Dimension and Zoom Hover) */}
                     <div
-                      className="w-full lg:w-[470px] lg:flex-none rounded-lg overflow-hidden border border-[#2a2a2e] relative cursor-pointer group bg-[#141416] shadow-xl flex items-center justify-center transition-all duration-300 hover:border-gold/30 scale-x-[1.03] scale-y-[1.06] origin-center"
+                      className="w-full lg:w-[470px] lg:flex-none rounded-lg overflow-hidden border border-[#2a2a2e] relative cursor-pointer group bg-[#141416] shadow-xl flex items-center justify-center transition-all duration-300 hover:border-gold/30 scale-100 sm:scale-x-[1.03] sm:scale-y-[1.06] origin-center"
                       onClick={() => handleOpenCertificate(cert)}
                     >
                       <div className="w-full aspect-[1024/724] relative overflow-hidden rounded-lg bg-[#0F0F11]">
@@ -156,7 +156,7 @@ export default function Certificates() {
                       {/* Certificate Title */}
                       <h3
                         onClick={() => handleOpenCertificate(cert)}
-                        className="font-display text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-extrabold text-[#F3EFE6] hover:text-gold transition-colors cursor-pointer leading-[1.15] tracking-tight mb-5"
+                        className="font-display text-xl sm:text-2xl md:text-3xl lg:text-[34px] xl:text-[38px] font-extrabold text-[#F3EFE6] hover:text-gold transition-colors cursor-pointer leading-[1.15] tracking-tight mb-5"
                       >
                         {cert.title}
                       </h3>
@@ -167,9 +167,9 @@ export default function Certificates() {
                       </p>
 
                       {/* Key Metrics / Highlights */}
-                      <div className="flex flex-wrap items-start gap-8 sm:gap-12 mb-7">
+                      <div className="flex flex-wrap items-start gap-4 sm:gap-8 md:gap-12 mb-7">
                         {cert.keyMetrics.map((m) => (
-                          <div key={m.label} className="min-w-[110px]">
+                          <div key={m.label} className="min-w-[90px] sm:min-w-[110px]">
                             <b className="stat-number text-lg sm:text-xl font-extrabold text-[#F3EFE6] block mb-1">
                               {m.value}
                             </b>

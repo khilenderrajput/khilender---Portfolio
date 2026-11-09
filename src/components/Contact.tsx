@@ -51,24 +51,24 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-40 bg-transparent text-center relative z-10 select-none">
-      <div className="max-w-4xl mx-auto px-6">
+    <section id="contact" className="py-20 sm:py-28 md:py-40 bg-transparent text-center relative z-10 select-none">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         {/* Top Subtitle */}
-        <span className="font-mono text-xs text-[#888888] uppercase tracking-widest block mb-5 font-semibold">
+        <span className="font-mono text-xs text-[#888888] uppercase tracking-widest block mb-4 sm:mb-5 font-semibold">
           // GET IN TOUCH
         </span>
 
         {/* Main Heading */}
-        <h2 className="font-sans text-5xl sm:text-7xl font-black text-[#E5DFD3] tracking-tight mb-24">
+        <h2 className="font-sans text-4xl sm:text-6xl md:text-7xl font-black text-[#E5DFD3] tracking-tight mb-14 sm:mb-20 md:mb-24">
           Let's Talk
         </h2>
 
         {/* Email Link with Hover Underline Border */}
-        <div className="mb-32">
+        <div className="mb-16 sm:mb-24 md:mb-32">
           <a
             href={`mailto:${PERSONAL_INFO.email}`}
-            className="font-sans text-lg sm:text-2xl md:text-3xl font-bold text-[#E5DFD3] hover:text-[#A39E93] border-b-2 border-[#262626] hover:border-[#A39E93] pb-1 transition-all duration-300 inline-block"
+            className="font-sans text-base sm:text-xl md:text-3xl font-bold text-[#E5DFD3] hover:text-[#A39E93] border-b-2 border-[#262626] hover:border-[#A39E93] pb-1 transition-all duration-300 inline-block break-all sm:break-normal"
           >
             {PERSONAL_INFO.email}
           </a>

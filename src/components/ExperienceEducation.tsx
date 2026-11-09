@@ -20,13 +20,13 @@ export default function ExperienceEducation() {
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#78786C] block mb-4 font-semibold">
             ACADEMICS
           </span>
-          <h2 className="font-display text-5xl sm:text-6xl md:text-7xl font-black text-[#E5DFD3] tracking-tight leading-none">
+          <h2 className="font-display text-4xl sm:text-6xl md:text-7xl font-black text-[#E5DFD3] tracking-tight leading-none">
             Education
           </h2>
         </motion.div>
 
         {/* Education Timeline Items */}
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {EDUCATION_LIST.map((edu, index) => (
             <motion.div
               key={edu.institution}
@@ -34,7 +34,7 @@ export default function ExperienceEducation() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="rounded-3xl p-8 sm:p-10 bg-[#121212]/90 border border-[#222225] backdrop-blur-sm hover:border-[#333333] transition-all"
+              className="rounded-3xl p-5 sm:p-8 md:p-10 bg-[#121212]/90 border border-[#222225] backdrop-blur-sm hover:border-[#333333] transition-all"
             >
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
                 

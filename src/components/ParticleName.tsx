@@ -210,11 +210,11 @@ export default function ParticleName({ text = 'KHILENDER RAJPUT', className = ''
   }, [text, isMounted, align]);
 
   if (!isMounted) {
-    return <div className={`w-full overflow-hidden mb-2 min-h-[170px] sm:min-h-[256px] md:min-h-[330px] lg:min-h-[404px] ${className}`} />;
+    return <div className={`w-full overflow-hidden mb-2 min-h-[120px] sm:min-h-[180px] md:min-h-[280px] lg:min-h-[404px] ${className}`} />;
   }
 
   return (
-    <div ref={containerRef} className={`w-full overflow-hidden mb-2 min-h-[170px] sm:min-h-[256px] md:min-h-[330px] lg:min-h-[404px] ${className}`}>
+    <div ref={containerRef} className={`w-full overflow-hidden mb-2 min-h-[120px] sm:min-h-[180px] md:min-h-[280px] lg:min-h-[404px] ${className}`}>
       <canvas ref={canvasRef} className="block w-full h-auto pointer-events-none" />
       <span className="sr-only">{text}</span>
     </div>
