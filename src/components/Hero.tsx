@@ -99,11 +99,11 @@ export default function Hero({ onOpenResumeModal }: HeroProps) {
               style={{ position: 'relative', top: '26px' }}
               className="relative w-full max-w-[240px] sm:max-w-[272px] aspect-[4/5] rounded-2xl overflow-hidden border border-surfaceBorderStrong shadow-[0_40px_70px_-25px_rgba(0,0,0,0.85)] group bg-surface flex-shrink-0"
             >
-              {/* Profile Image - kr.photo.5.jpeg */}
+              {/* Profile Image */}
               <img
-                src="/kr.photo.5.jpeg"
+                src="/hero-profile.jpg"
                 alt="Khilender Rajput - Profile Photo"
-                className="w-full h-full object-cover object-center filter contrast-[1.05] brightness-[1.02] transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover object-center filter contrast-[1.02] brightness-[1.02] transition-transform duration-700 group-hover:scale-105"
               />
             </motion.div>
           </div>

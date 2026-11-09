@@ -2,80 +2,110 @@
 
 import { motion } from 'framer-motion';
 
-const EXPERIENCE_ITEMS = [
+interface ExperienceItem {
+  number: string;
+  title: string;
+  organization: string;
+  duration?: string;
+  mode?: string;
+  descriptions: string[];
+}
+
+const EXPERIENCE_ITEMS: ExperienceItem[] = [
   {
     number: '01',
-    title: 'SQL Problem Solver',
-    subtitle: 'LEETCODE • 75+ QUESTIONS SOLVED',
-    description:
-      'Solved 75+ SQL problems on LeetCode covering joins, window functions, and performance queries.',
+    title: 'Data Analytics Intern',
+    organization: 'iNeuBytes Technology & Services Pvt. Ltd.',
+    descriptions: [
+      'Completing project-based Data Analytics assignments covering data cleaning, EDA, and KPI reporting to turn raw datasets into business insights.',
+      'Submitting documented analysis, project work, and deliverables through the iNeuBytes portal within defined timelines.',
+    ],
   },
   {
     number: '02',
-    title: 'OTT Subscription Churn Analytics',
-    subtitle: 'DATA ANALYTICS PIPELINE • PYTHON & SQL & POWER BI',
-    description:
-      'Built end-to-end churn analytics tracking 20+ KPIs with revenue retention modeling.',
+    title: 'UI/UX Design Intern',
+    organization: 'GENIUS CYBER SECURITY COUNCIL',
+    descriptions: [
+      'Built the official Genius Cyber Security Council website, focusing on UI/UX, responsive design, and user experience.',
+    ],
   },
   {
     number: '03',
-    title: 'Certified Data & AI Specialist',
-    subtitle: 'IBM • CODEALPHA • HP LIFE',
-    description:
-      'Certifications in Python for Data Science (IBM) and Data Science Internship (CodeAlpha).',
+    title: 'Team Leader – Planning & Coordination',
+    organization: 'GENIUS CYBER SECURITY COUNCIL',
+    descriptions: [
+      '• Led team coordination and managed client relationships, project requirements, and stakeholder communication.',
+      '• Supported business expansion by engaging with universities, meeting Deans, and building professional institutional partnerships.',
+    ],
   },
 ];
 
-export default function Experience() {
+export function ExperienceSection() {
   return (
-    <section id="experience" className="pt-24 pb-20 bg-transparent relative z-10 border-b border-[#222225] text-left">
+    <section id="experience" className="pt-20 pb-28 bg-transparent text-left relative z-10 scroll-mt-20">
+      {/* Anchor alias to support navbar #certificate links seamlessly */}
+      <div id="certificate" className="absolute -top-24 pointer-events-none" />
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
+          transition={{ duration: 0.5 }}
+          className="mb-10 sm:mb-12"
         >
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#78786C] block mb-[19px]">
+          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#78786C] block mb-[19px] font-semibold">
             EXPERIENCE
           </span>
-          <h2 className="text-5xl sm:text-6xl md:text-7xl font-black text-[#E5DFD3] tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#E5DFD3] tracking-tight">
             Experience
           </h2>
         </motion.div>
 
-        {/* Stacked Entries List */}
-        <div className="divide-y divide-[#222225] border-t border-b border-[#222225]">
+        {/* Compact Stacked Flex List */}
+        <div className="space-y-7 sm:space-y-8">
           {EXPERIENCE_ITEMS.map((item, index) => (
             <motion.div
               key={item.number}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="py-10 md:py-12 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start group"
+              transition={{ duration: 0.4, delay: index * 0.08 }}
+              className="flex items-start gap-6 sm:gap-10 group"
             >
-              {/* Index Number */}
-              <div className="md:col-span-2 font-mono text-3xl font-medium text-[#666668] group-hover:text-[#E5DFD3] transition-colors">
+              {/* Left Side: Index Number */}
+              <div className="font-mono text-xl md:text-2xl font-medium text-[#BFA678] flex-none pt-0.5 w-8">
                 {item.number}
               </div>
 
-              {/* Title & Subtitle */}
-              <div className="md:col-span-5 space-y-2">
-                <span className="font-mono text-xs uppercase tracking-widest text-[#666668] block">
-                  {item.subtitle}
-                </span>
-                <h3 className="text-2xl md:text-3xl font-bold text-[#E5DFD3] leading-snug">
+              {/* Right Side: Vertical Stacked Content */}
+              <div className="max-w-3xl">
+                <h3 className="text-xl md:text-2xl font-bold text-[#E5DFD3] leading-snug mb-2.5 sm:mb-3">
                   {item.title}
                 </h3>
-              </div>
 
-              {/* Description */}
-              <div className="md:col-span-5 text-[#999999] text-sm md:text-base leading-relaxed pt-1">
-                {item.description}
+                <div className="mb-3">
+                  <span className="font-mono text-[11px] uppercase tracking-widest text-[#666668] block">
+                    {item.organization}
+                  </span>
+                  {(item.duration || item.mode) && (
+                    <div className="font-mono text-[11px] text-[#78786C] tracking-wider flex flex-wrap items-center gap-x-2 mt-1">
+                      {item.duration && <span>Duration: {item.duration}</span>}
+                      {item.duration && item.mode && <span className="text-[#444448]">•</span>}
+                      {item.mode && <span>Mode: {item.mode}</span>}
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  {item.descriptions.map((desc, i) => (
+                    <p key={i} className="text-xs md:text-sm text-[#888888] leading-relaxed">
+                      {desc}
+                    </p>
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}
@@ -85,3 +115,5 @@ export default function Experience() {
     </section>
   );
 }
+
+export default ExperienceSection;

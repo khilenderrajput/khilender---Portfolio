@@ -16,8 +16,13 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
 
   const handleDownload = () => {
     setDownloaded(true);
-    // Trigger download or print window
-    window.print();
+    const link = document.createElement('a');
+    link.href = '/resume.pdf';
+    link.download = 'Khilender_Rajput_Resume.pdf';
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
     setTimeout(() => setDownloaded(false), 3000);
   };
 

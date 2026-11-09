@@ -40,7 +40,7 @@ export default function Contact() {
     },
     {
       name: 'LEETCODE',
-      href: 'https://leetcode.com',
+      href: 'https://leetcode.com/u/Khilender_rajput/',
       isExternal: true,
       icon: (
         <svg className="w-3.5 h-3.5 stroke-current fill-none" strokeWidth="1.75" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">

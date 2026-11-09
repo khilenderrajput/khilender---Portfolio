@@ -14,7 +14,7 @@ export default function Navbar({ isPlaying, onToggleSound, onOpenResumeModal }: 
 
   const navItems = [
     { name: 'PROJECTS', href: '#projects' },
-    { name: 'CERTIFICATE', href: '#certificate' },
+    { name: 'EXPERIENCE', href: '#experience' },
     { name: 'ABOUT', href: '#about' },
     { name: 'MUSIC', href: '#music' },
     { name: 'CONTACT', href: '#contact' },

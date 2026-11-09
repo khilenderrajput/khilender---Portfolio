@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 
 export interface Track {
   id: number | string;
@@ -19,6 +19,31 @@ export interface Track {
 interface AudioPlayerProps {
   isPlaying?: boolean;
   onPlayStateChange?: (playing: boolean) => void;
+}
+
+export interface AudioPlayerHandle {
+  toggleNavbarMusic: () => void;
+  playRandomSong: () => void;
+  stopMusic: () => void;
+  isPlaying: boolean;
+}
+
+export const NAVBAR_SONG_TITLES = [
+  'zehnaseeb',
+  'bairan',
+  'khat',
+  'glimpse of us',
+  'the night we met'
+];
+
+export function getLocalFallback(title: string): string | null {
+  const t = (title || '').trim().toLowerCase();
+  if (t === 'zehnaseeb') return '/audio/zehnaseeb.mp3';
+  if (t === 'bairan') return '/audio/bairan.mp3';
+  if (t === 'khat') return '/audio/khat.mp3';
+  if (t === 'glimpse of us') return '/audio/glimpse-of-us.mp3';
+  if (t === 'the night we met') return '/audio/the-night-we-met.mp3';
+  return null;
 }
 
 // Explicit set of blocked titles for code-level filtering
@@ -53,16 +78,16 @@ const SCATTERED_POSITIONS = [
 ];
 
 export const INITIAL_TRACKS: Track[] = [
-  { id: 1, title: 'Zehnaseeb', artist: 'Vishal & Shekhar, Chinmayi Sripada', cover: '/images/zehnaseeb.jpg', isFavorite: true, top: '3%', left: '3%', rotate: '-6deg' },
+  { id: 1, title: 'Zehnaseeb', artist: 'Vishal & Shekhar, Chinmayi Sripada', cover: '/images/zehnaseeb.jpg', preview: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/48/08/01/480801a4-9f9e-1006-411f-57dd066d703e/mzaf_7851861831106546986.plus.aac.p.m4a', isFavorite: true, top: '3%', left: '3%', rotate: '-6deg' },
   { id: 2, title: 'For A Reason', artist: 'Karan Aujla & Ikky', cover: '/images/for-a-reason.jpg', top: '2%', left: '26%', rotate: '4deg' },
   { id: 3, title: 'Baarishein', artist: 'Anuv Jain', cover: '/images/baarishein.jpg', top: '4%', left: '49%', rotate: '-3deg' },
   { id: 4, title: 'Tum Se Hi', artist: 'Pritam & Mohit Chauhan', cover: '/images/tum-se-hi.jpg', top: '2%', left: '73%', rotate: '5deg' },
   { id: 5, title: 'All Too Well', artist: 'Taylor Swift', cover: '/images/all-too-well.jpg', top: '24%', left: '8%', rotate: '3deg' },
   { id: 6, title: 'Cruel Summer', artist: 'Taylor Swift', cover: '/images/cruel-summer.jpg', top: '22%', left: '33%', rotate: '-5deg' },
-  { id: 7, title: 'The Night We Met', artist: 'Lord Huron', cover: '/images/the-night-we-met.jpg', top: '25%', left: '57%', rotate: '6deg' },
-  { id: 8, title: 'Glimpse of Us', artist: 'Joji', cover: '/images/glimpse-of-us.jpg', top: '23%', left: '80%', rotate: '-4deg' },
-  { id: 9, title: 'Khat', artist: 'Navjot Ahuja', cover: '/images/khat.jpg', top: '44%', left: '4%', rotate: '5deg' },
-  { id: 10, title: 'Bairan', artist: 'Banjaare', cover: '/images/bairan.jpg', top: '43%', left: '27%', rotate: '-7deg' },
+  { id: 7, title: 'The Night We Met', artist: 'Lord Huron', cover: '/images/the-night-we-met.jpg', preview: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/64/b4/f3/64b4f3e5-d4f9-ec10-e6af-b6c26bde9b47/mzaf_8621887946764980860.plus.aac.p.m4a', top: '25%', left: '57%', rotate: '6deg' },
+  { id: 8, title: 'Glimpse of Us', artist: 'Joji', cover: '/images/glimpse-of-us.jpg', preview: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/0c/53/c2/0c53c240-300a-5ddf-fc86-3a54e1b73a78/mzaf_13555682862214742934.plus.aac.p.m4a', top: '23%', left: '80%', rotate: '-4deg' },
+  { id: 9, title: 'Khat', artist: 'Navjot Ahuja', cover: '/images/khat.jpg', preview: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/41/71/a4/4171a467-7855-a584-6142-52418eee2cd6/mzaf_5236382006187510745.plus.aac.p.m4a', top: '44%', left: '4%', rotate: '5deg' },
+  { id: 10, title: 'Bairan', artist: 'Banjaare', cover: '/images/bairan.jpg', preview: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/0c/d8/56/0cd85678-5b5b-4b2b-a2e6-86c9a73b5384/mzaf_89108539719013236.plus.aac.p.m4a', top: '43%', left: '27%', rotate: '-7deg' },
   { id: 11, title: 'Tera Hone Laga Hoon', artist: 'Pritam & Atif Aslam', cover: '/images/7.jpg', top: '46%', left: '49%', rotate: '4deg' },
   { id: 12, title: 'Until I Found You', artist: 'Stephen Sanchez', cover: '/images/8.jpg', top: '42%', left: '72%', rotate: '-3deg' },
   { id: 13, title: 'I Wanna Be Yours', artist: 'Arctic Monkeys', cover: '/images/9.jpg', top: '65%', left: '7%', rotate: '-4deg' },
@@ -113,7 +138,8 @@ export function getPlayablePreview(track: any): string | null {
   return null;
 }
 
-export default function AudioPlayer({ isPlaying: externalIsPlaying, onPlayStateChange }: AudioPlayerProps) {
+export const AudioPlayer = forwardRef<AudioPlayerHandle, AudioPlayerProps>(
+  function AudioPlayer({ isPlaying: externalIsPlaying, onPlayStateChange }, ref) {
   const [tracks, setTracks] = useState<Track[]>(INITIAL_TRACKS);
   const [currentTrackIndex, setCurrentTrackIndex] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -125,6 +151,96 @@ export default function AudioPlayer({ isPlaying: externalIsPlaying, onPlayStateC
   const [apiError, setApiError] = useState<string | null>(null);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const startRandomNavbarSong = () => {
+    // Find eligible tracks matching any of the 5 requested songs
+    const eligible = tracks
+      .map((track, idx) => ({ track, idx }))
+      .filter(({ track }) => {
+        const titleLower = (track.title || '').trim().toLowerCase();
+        return NAVBAR_SONG_TITLES.includes(titleLower);
+      });
+
+    if (eligible.length === 0) return;
+
+    // Pick randomly from the 5 songs, excluding the current one if multiple are available
+    const pool = (eligible.length > 1 && currentTrackIndex !== null)
+      ? eligible.filter(item => item.idx !== currentTrackIndex)
+      : eligible;
+
+    const chosen = pool[Math.floor(Math.random() * pool.length)];
+
+    setCurrentTrackIndex(chosen.idx);
+    setCurrentTime(0);
+    setDuration(0);
+
+    const primaryUrl = getPlayablePreview(chosen.track) || chosen.track.preview;
+    const localFallback = getLocalFallback(chosen.track.title);
+    const audioSource = primaryUrl || localFallback;
+
+    if (audioRef.current && audioSource) {
+      audioRef.current.pause();
+      audioRef.current.src = audioSource;
+      audioRef.current.currentTime = 0;
+      audioRef.current.load();
+
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+            if (onPlayStateChange) onPlayStateChange(true);
+          })
+          .catch((err) => {
+            if (localFallback && audioRef.current && audioRef.current.src !== localFallback) {
+              audioRef.current.src = localFallback;
+              audioRef.current.load();
+              audioRef.current
+                .play()
+                .then(() => {
+                  setIsPlaying(true);
+                  if (onPlayStateChange) onPlayStateChange(true);
+                })
+                .catch((err2) => {
+                  console.warn('[Navbar Audio Fallback Error]', err2);
+                  setIsPlaying(false);
+                  if (onPlayStateChange) onPlayStateChange(false);
+                });
+            } else {
+              console.warn('[Navbar Audio Error]', err);
+              setIsPlaying(false);
+              if (onPlayStateChange) onPlayStateChange(false);
+            }
+          });
+      }
+    }
+  };
+
+  useImperativeHandle(ref, () => ({
+    toggleNavbarMusic: () => {
+      if (isPlaying) {
+        if (audioRef.current) {
+          audioRef.current.pause();
+        }
+        setIsPlaying(false);
+        if (onPlayStateChange) onPlayStateChange(false);
+      } else {
+        startRandomNavbarSong();
+      }
+    },
+    playRandomSong: () => {
+      startRandomNavbarSong();
+    },
+    stopMusic: () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      setIsPlaying(false);
+      if (onPlayStateChange) onPlayStateChange(false);
+    },
+    isPlaying,
+  }));
+
 
   // Local storage & session storage cleanup for blocked titles on mount
   useEffect(() => {
@@ -613,4 +729,6 @@ export default function AudioPlayer({ isPlaying: externalIsPlaying, onPlayStateC
       </div>
     </section>
   );
-}
+});
+
+export default AudioPlayer;

@@ -12,7 +12,7 @@ const STATS = [
     label: 'CHURN KPIS TRACKED',
   },
   {
-    value: '100+',
+    value: '150+',
     label: 'SQL PROBLEMS SOLVED ON LEETCODE',
   },
 ];

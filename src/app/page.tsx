@@ -1,16 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import CustomCursor from '@/components/CustomCursor';
 import BackgroundCanvas from '@/components/BackgroundCanvas';
 import Hero from '@/components/Hero';
 import Projects from '@/components/Projects';
-import CertificatesSection from '@/components/Certificates';
+import ExperienceSection from '@/components/Experience';
 import StatsBanner from '@/components/StatsBanner';
 import Skills from '@/components/Skills';
+import Certificates from '@/components/Certificates';
 import ExperienceEducation from '@/components/ExperienceEducation';
-import AudioPlayer from '@/components/AudioPlayer';
+import AudioPlayer, { AudioPlayerHandle } from '@/components/AudioPlayer';
 import Contact from '@/components/Contact';
 import ProjectModal from '@/components/ProjectModal';
 import ResumeModal from '@/components/ResumeModal';
@@ -20,6 +21,15 @@ export default function Home() {
   const [isPlayingSound, setIsPlayingSound] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
+  const audioPlayerRef = useRef<AudioPlayerHandle>(null);
+
+  const handleToggleSound = () => {
+    if (audioPlayerRef.current) {
+      audioPlayerRef.current.toggleNavbarMusic();
+    } else {
+      setIsPlayingSound((prev) => !prev);
+    }
+  };
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-cream relative selection:bg-gold selection:text-accent-ink overflow-hidden">
@@ -32,7 +42,7 @@ export default function Home() {
       {/* Floating Glass Navbar */}
       <Navbar
         isPlaying={isPlayingSound}
-        onToggleSound={() => setIsPlayingSound((prev) => !prev)}
+        onToggleSound={handleToggleSound}
         onOpenResumeModal={() => setIsResumeModalOpen(true)}
       />
 
@@ -42,8 +52,8 @@ export default function Home() {
       {/* Projects Grid */}
       <Projects onSelectProject={(project) => setSelectedProject(project)} />
 
-      {/* Certificates Section */}
-      <CertificatesSection />
+      {/* Experience Section */}
+      <ExperienceSection />
 
       {/* Stats Section (Right Below Certificates) */}
       <StatsBanner />
@@ -51,11 +61,15 @@ export default function Home() {
       {/* Technical Skills Section */}
       <Skills />
 
+      {/* Certificates Section */}
+      <Certificates />
+
       {/* Education Section */}
       <ExperienceEducation />
 
       {/* Audio Deck Widget */}
       <AudioPlayer
+        ref={audioPlayerRef}
         isPlaying={isPlayingSound}
         onPlayStateChange={(playing) => setIsPlayingSound(playing)}
       />
