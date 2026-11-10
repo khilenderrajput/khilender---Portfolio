@@ -11,10 +11,10 @@ export default function ExperienceEducation() {
         
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-14 sm:mb-16"
         >
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#78786C] block mb-4 font-semibold">
@@ -30,10 +30,10 @@ export default function ExperienceEducation() {
           {EDUCATION_LIST.map((edu, index) => (
             <motion.div
               key={edu.institution}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
+              viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
               className="rounded-3xl p-5 sm:p-8 md:p-10 bg-[#121212]/90 border border-[#222225] backdrop-blur-sm hover:border-[#333333] transition-all"
             >
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">

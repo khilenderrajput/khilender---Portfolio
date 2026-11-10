@@ -142,10 +142,10 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
         
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-2xl mb-14 md:mb-16 pl-0"
         >
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#78786C] block mb-[19px] font-semibold">
@@ -158,10 +158,10 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
 
         {/* Interactive Filter Buttons Row Matching Screenshot */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-wrap items-center gap-2 sm:gap-2.5 md:gap-3 mb-10 sm:mb-14 md:mb-16"
         >
           {FILTER_OPTIONS.map((filter) => {
@@ -192,13 +192,13 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
             transition={{ duration: 0.3 }}
             className="bg-[#121214]/95 backdrop-blur-sm border border-[#222226] rounded-3xl p-12 sm:p-16 text-center max-w-xl mx-auto my-6"
           >
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-gold/80 block mb-3 font-semibold">
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#AEA497] block mb-3 font-semibold">
               {activeFilter}
             </span>
-            <p className="font-body text-[#9ca3af] text-sm sm:text-base mb-2">
+            <p className="font-body text-[#979695] text-sm sm:text-base mb-2">
               No projects in this category yet.
             </p>
-            <span className="font-mono text-xs text-[#71717a]">
+            <span className="font-mono text-xs text-[#5A595C]">
               New projects will be added soon.
             </span>
           </motion.div>
@@ -214,10 +214,10 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
             return (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
                 className={`bg-[#121214]/95 backdrop-blur-sm border border-[#222226] hover:border-[#33333a] rounded-3xl transition-all duration-300 relative overflow-hidden py-8 sm:py-12 md:py-14 lg:py-16 px-5 sm:px-8 lg:px-7 ${
                   isStandardizedCard ? 'lg:h-[585px]' : ''
                 }`}
@@ -264,7 +264,7 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
                         />
                         {/* Hover Overlay: Dark translucent overlay with TRY IT LIVE ↗ or VIEW DETAILS ↗ text */}
                         <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none rounded-lg">
-                          <span className="font-mono text-xs sm:text-[13px] uppercase tracking-[0.25em] text-[#E5DFD3] font-normal flex items-center gap-2 select-none">
+                          <span className="font-mono text-xs sm:text-[13px] uppercase tracking-[0.25em] text-[#EAE5D8] font-normal flex items-center gap-2 select-none">
                             <span>{project.liveUrl ? 'TRY IT LIVE' : 'VIEW DETAILS'}</span>
                             <span className="text-sm leading-none">↗</span>
                           </span>
@@ -287,7 +287,7 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
                   >
                     
                     {/* Top Metadata */}
-                    <span className={`font-mono text-xs uppercase tracking-[0.2em] text-[#88888e] block font-semibold ${
+                    <span className={`font-mono text-xs uppercase tracking-[0.2em] text-[#AEA497] block font-semibold ${
                       isStandardizedCard ? 'mb-3 lg:mb-0' : 'mb-3'
                     }`}>
                       {formattedIndex} · {project.category.toUpperCase()}
@@ -296,7 +296,7 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
                     {/* Project Title */}
                     <h3
                       onClick={() => onSelectProject(project)}
-                      className={`font-display text-xl sm:text-2xl md:text-3xl lg:text-[34px] xl:text-[38px] font-extrabold text-[#F3EFE6] hover:text-gold transition-colors cursor-pointer leading-[1.15] tracking-tight ${
+                      className={`font-display text-xl sm:text-2xl md:text-3xl lg:text-[34px] xl:text-[38px] font-extrabold text-[#EAE5D8] hover:text-gold transition-colors cursor-pointer leading-[1.15] tracking-tight ${
                         isStandardizedCard ? 'mb-5 lg:mb-0' : 'mb-5'
                       }`}
                     >
@@ -304,7 +304,7 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
                     </h3>
 
                     {/* Description */}
-                    <p className={`font-body text-[#9ca3af] text-xs sm:text-sm md:text-[14px] leading-relaxed max-w-2xl ${
+                    <p className={`font-body text-[#979695] text-xs sm:text-sm md:text-[14px] leading-relaxed max-w-2xl ${
                       isStandardizedCard ? 'mb-7 lg:mb-0' : 'mb-7'
                     }`}>
                       {project.description}
@@ -316,10 +316,10 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
                     }`}>
                       {project.keyMetrics.map((m) => (
                         <div key={m.label} className="min-w-[90px] sm:min-w-[110px]">
-                          <b className="stat-number text-lg sm:text-xl font-extrabold text-[#F3EFE6] block mb-1">
+                          <b className="stat-number text-lg sm:text-xl font-extrabold text-[#AEA497] block mb-1">
                             {m.value}
                           </b>
-                          <span className="font-mono text-[10px] sm:text-xs text-[#71717a] uppercase tracking-wider block">
+                          <span className="font-mono text-[10px] sm:text-xs text-[#5A595C] uppercase tracking-wider block">
                             {m.label}
                           </span>
                         </div>
@@ -334,7 +334,7 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
                         {project.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className="font-mono text-xs text-[#a1a1aa] bg-[#18181b] border border-[#2e2e33] px-3.5 py-1.5 rounded-full hover:border-gold/40 hover:text-gold transition-colors"
+                            className="font-mono text-xs text-[#979595] bg-[#18181b] border border-[#2e2e33] px-3.5 py-1.5 rounded-full hover:border-gold/40 hover:text-gold transition-colors"
                           >
                             {tech}
                           </span>
@@ -348,7 +348,7 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-mono text-xs uppercase tracking-widest font-semibold text-[#E5DFD3] hover:text-gold border-b border-[#333333] hover:border-gold pb-1 transition-colors duration-300 flex items-center gap-1.5"
+                            className="font-mono text-xs uppercase tracking-widest font-semibold text-[#EAE5D8] hover:text-gold border-b border-[#333333] hover:border-gold pb-1 transition-colors duration-300 flex items-center gap-1.5"
                           >
                             <span>LIVE</span>
                             <span className="text-sm leading-none">↗</span>
@@ -359,7 +359,7 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-mono text-xs uppercase tracking-widest font-semibold text-[#E5DFD3] hover:text-gold border-b border-[#333333] hover:border-gold pb-1 transition-colors duration-300 flex items-center gap-1.5"
+                          className="font-mono text-xs uppercase tracking-widest font-semibold text-[#EAE5D8] hover:text-gold border-b border-[#333333] hover:border-gold pb-1 transition-colors duration-300 flex items-center gap-1.5"
                         >
                           <Github size={13} />
                           <span>GITHUB</span>

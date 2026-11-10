@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import { PERSONAL_INFO } from '@/data/portfolioData';
 
 export default function Contact() {
@@ -54,28 +55,46 @@ export default function Contact() {
     <section id="contact" className="py-20 sm:py-28 md:py-40 bg-transparent text-center relative z-10 select-none">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
-        {/* Top Subtitle */}
-        <span className="font-mono text-xs text-[#888888] uppercase tracking-widest block mb-4 sm:mb-5 font-semibold">
-          // GET IN TOUCH
-        </span>
+        {/* Top Subtitle & Main Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <span className="font-mono text-xs text-[#888888] uppercase tracking-widest block mb-4 sm:mb-5 font-semibold">
+            // GET IN TOUCH
+          </span>
 
-        {/* Main Heading */}
-        <h2 className="font-sans text-4xl sm:text-6xl md:text-7xl font-black text-[#E5DFD3] tracking-tight mb-14 sm:mb-20 md:mb-24">
-          Let's Talk
-        </h2>
+          <h2 className="font-sans text-4xl sm:text-6xl md:text-7xl font-black text-[#E5DFD3] tracking-tight mb-14 sm:mb-20 md:mb-24">
+            Let's Talk
+          </h2>
+        </motion.div>
 
         {/* Email Link with Hover Underline Border */}
-        <div className="mb-16 sm:mb-24 md:mb-32">
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          className="mb-16 sm:mb-24 md:mb-32"
+        >
           <a
             href={`mailto:${PERSONAL_INFO.email}`}
             className="font-sans text-base sm:text-xl md:text-3xl font-bold text-[#E5DFD3] hover:text-[#A39E93] border-b-2 border-[#262626] hover:border-[#A39E93] pb-1 transition-all duration-300 inline-block break-all sm:break-normal"
           >
             {PERSONAL_INFO.email}
           </a>
-        </div>
+        </motion.div>
 
         {/* Social Links Row with Muted Icons & Bullet Separators */}
-        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+          className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-16"
+        >
           {socialLinks.map((link, idx) => (
             <React.Fragment key={link.name}>
               {idx > 0 && <span className="text-[#A39E93]/40 font-mono text-xs select-none">•</span>}
@@ -90,14 +109,19 @@ export default function Contact() {
               </a>
             </React.Fragment>
           ))}
-        </div>
+        </motion.div>
 
         {/* Bottom Copyright */}
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '0px 0px -4% 0px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
+        >
           <p className="font-mono text-xs text-[#555555] tracking-[0.25em] uppercase font-semibold">
             KHILENDR RAJPUT • 2026
           </p>
-        </div>
+        </motion.div>
 
       </div>
     </section>

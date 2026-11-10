@@ -32,8 +32,8 @@ const config: Config = {
         }
       },
       fontFamily: {
-        display: ["Clash Display", "-apple-system", "sans-serif"],
-        body: ["General Sans", "-apple-system", "sans-serif"],
+        display: ["Clash Display", "Outfit", "-apple-system", "sans-serif"],
+        body: ["General Sans", "Plus Jakarta Sans", "-apple-system", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
       animation: {

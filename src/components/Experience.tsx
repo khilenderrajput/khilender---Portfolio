@@ -50,29 +50,26 @@ export function ExperienceSection() {
         
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-10 sm:mb-12"
+          viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16 sm:mb-20 md:mb-28 lg:mb-32"
         >
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#78786C] block mb-[19px] font-semibold">
-            EXPERIENCE
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#E5DFD3] tracking-tight">
+          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-black text-[#E5DFD3] tracking-tight leading-none">
             Experience
           </h2>
         </motion.div>
 
         {/* Compact Stacked Flex List */}
-        <div className="space-y-7 sm:space-y-8">
+        <div className="space-y-[35px] sm:space-y-[40px]">
           {EXPERIENCE_ITEMS.map((item, index) => (
             <motion.div
               key={item.number}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.08 }}
+              viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
               className="flex items-start gap-6 sm:gap-10 group"
             >
               {/* Left Side: Index Number */}

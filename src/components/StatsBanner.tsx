@@ -25,10 +25,10 @@ export default function StatsBanner() {
           {STATS.map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
+              viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
               className="space-y-1"
             >
               <div className="font-mono text-4xl md:text-5xl font-bold text-[#BFA678] tracking-tight">
